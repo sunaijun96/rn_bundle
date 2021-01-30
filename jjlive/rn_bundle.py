@@ -21,10 +21,12 @@ class Execute:
             self.cmd_command('cd ' + args[0])
             print(os.getcwd())
 
-    def cd_back(self):
+    def cd_framework(self):
         try:
             os.chdir(r'F:\rn_bundle\jjlive')   # os.chdir()指定默认路径，进入framework下
             print(os.getcwd())
+            self.cmd_command('./rnbundle.sh -rnbundle jjlive')  # 打bundle包
+            input()
         except:
             pass
 
@@ -76,6 +78,7 @@ class Execute:
             self.execute()
         self.cd_jjlive()
         self.git_pull()
+        self.cd_framework()
 
 
 if __name__ == '__main__':
