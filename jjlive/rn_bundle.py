@@ -41,8 +41,9 @@ class Execute:
         self.git_pull()
         self.cmd_command('git branch -a')
         time.sleep(2)
-        self.cmd_command('git checkout '+ args[0])
-        print('------分支切换成功------')
+        self.cmd_command('git checkout '+args[0])
+        print('------分支{}切换成功------'.format(args[0]))
+        self.git_branch()
 
     def git_pull(self):
         self.cmd_command('git pull -r')
@@ -79,5 +80,5 @@ class Execute:
 
 if __name__ == '__main__':
     exe = Execute()
-    exe.git_pull()
-    # exe.git_checkout('dev')
+    # exe.git_pull()
+    exe.git_checkout('dev')
