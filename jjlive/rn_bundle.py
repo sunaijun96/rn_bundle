@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 import os
-import sys
 import time
 
 
@@ -25,18 +24,25 @@ class Execute:
         try:
             os.chdir(r'F:\rn_bundle\jjlive')   # os.chdir()指定默认路径，进入framework下
             print(os.getcwd())
+            time.sleep(2)
             self.cmd_command('./rnbundle.sh -rnbundle jjlive')  # 打bundle包
-            input()
+            r = os.popen('./rnbundle.sh -rnbundle jjlive')  # 拿到控制台的输出
+            for line in r.readlines():
+                while line == '文案需要补充下':
+                    break
+                # else:
+                #     continue
         except:
             pass
 
     def git_branch(self):
         branch = None
+        print('当前本地分支：')
         self.cmd_command('git branch')
-        r = os.popen('git branch')
-        for line in r.readlines():
-            branch = line
-            print('当前的分支名称为：\n\t\t\t  '+line)
+        # r = os.popen('git branch')  # 拿到控制台的输出
+        # for line in r.readlines():
+        #     branch = line
+        # print('当前的分支名称为：\n\t\t\t  '+line)
         return branch
 
     def git_checkout(self, *args):
@@ -52,6 +58,9 @@ class Execute:
 
     def git_status(self):
         self.cmd_command('git status')
+        r = os.popen('git status')  # 拿到控制台的输出
+        for line in r.readlines():
+            print(line)
 
     def git_push(self):
         self.cmd_command('git push')
@@ -78,10 +87,17 @@ class Execute:
             self.execute()
         self.cd_jjlive()
         self.git_pull()
-        self.cd_framework()
+        self.cd_framework()   # 待补充后续判断是否打完bundle的操作
+        self.cd_jjlive()
+        print('已回到\jjlive')
+        self.git_status()
+        self.git_add()
+        self.git_commit()
+        print('提交后的status：\n')
+        self.git_status()
 
 
 if __name__ == '__main__':
     exe = Execute()
     # exe.git_pull()
-    exe.git_checkout('dev')
+    exe.git_add()
